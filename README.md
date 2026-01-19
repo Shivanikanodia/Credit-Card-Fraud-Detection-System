@@ -7,7 +7,7 @@ The objective of this project is to Build and Productionize a ML Engine that cla
 
 #### GOAL:
 
-Maximize fraud detection accuracy (high recall) while maintaining balanced precision-recall trade-off)
+Maximize fraud detection accuracy (high recall) while maintaining balanced precision-recall trade-off.
 To Provide an interface to Risk Team and Monitoring Teams to input details and receive fraud risk score, decisions and AI driven explanaitions using SHAP.  
 
 ---- 
