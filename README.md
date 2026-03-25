@@ -3,12 +3,12 @@
 
 #### OBJECTIVE:
 
-The objective of this project is to Build and Productionize a ML Engine that classifies whether a given transaction is Fraudulent or Legitimate. Detecting fraudulent transactions is critical in the financial and banking sectors to minimize monetary losses, protect customers, and maintain trust.
+The objective of this project is to Build and productionize a ML Engine that classifies whether a given transaction is Fraudulent or Legitimate. Detecting fraudulent transactions is critical in the financial and banking sectors to minimize monetary losses, protect customers, and maintain trust.
 
 #### GOAL:
 
-Maximize fraud detection accuracy (high recall) while maintaining balanced precision-recall trade-off.
-To Provide an interface to Risk Team and Monitoring Teams to input details and receive fraud risk score, decisions and AI driven explanaitions using SHAP.  
+- Maximize fraud detection accuracy (high recall) while maintaining balanced precision recall trade-off.
+- To provide an interface to Risk Team and Monitoring Teams to input details and receiving fraud risk score, decisions and AI driven explanations using SHAP.  
 
 ---- 
 #### STEPS:
@@ -17,15 +17,15 @@ To Provide an interface to Risk Team and Monitoring Teams to input details and r
 2. **Exploratory Data Analysis:**
 3. **Data Preprocessing and Feature Engineering:**
 4. **Model Selection, Model Building, Model Training and Model Evaluation:**
-5. **Model Deployement and Model Hosting on Docker:**
+5. **Model deployement and hosting on Docker:**
 ____
 
 **THE FOLLOWING ASSUMPTIONS HAVE BEEN MADE ON  DATA:**
 
 - I've assumed that transaction timestamps, Account IDs, and amounts are accurate.
 - Labels for “fraud” and “non-fraud” are correctly assigned.
-- Data from different Channels **POS Modes** are aligned by same AccountID.
-- Model errors are random, not systematically biased toward certain user groups.
+- Data from different Channels are aligned by same AccountID.
+- Model errors are random and not systematically biased toward certain user groups.
 - Real-time transactions reflect similar dynamics as training data.
 - No major policy or product changes occurred mid-dataset that affect fraud patterns.
 
@@ -33,8 +33,8 @@ ____
 
 ## Data Collection and Preparation:
 
-- The dataset contained 700,000 rows and 28 features with mixed data types. It was received in JSON format and processed using the JSONLines library.
-- The dataset was checked for missing values using the isnull().sum() function and for empty strings and whitespace characters using regular expressions (Regex).  
+- The dataset has 700,000 rows and 28 features with mixed data types. It was received in JSON format and processed using the JSONLines library.
+- The dataset was checked for missing values using the isnull().sum(), for empty strings and whitespace characters using regular expressions (Regex).  
 - The nunique() function in Python was used to detect unique value distribution and category diversity.
 - The pd.to_datetime() function was applied to convert datetime columns stored as strings into proper date objects (TransactionDateTime, AccountOpenDate, ExpiryDate).
 - For numerical data distribution, skewness was calculated and visualized using KDE plots and histograms. For right-skewed transaction data, the log1p transformation was applied to normalize the distribution.
@@ -98,14 +98,13 @@ Two datasets were explored during development.
 
 Only the enriched dataset and corresponding pipeline are used in production.
 
-Multiple Models were evaluated: Logisitc Regression, Random Forest, Gradient Boosting Decision trees and Xgboost. 
+Multiple Models were evaluated: Logisitc Regression, Random Forest, Gradient Boosting, Decision trees and Xgboost. 
 
 Xgboost was selected as the base model due to its interpretability and ability to deal with complex features.  Built a Scikit-learn pipeline that encapsulated, ColumnTransformer for scaling and preprocessing.
 
 - Threshold Strategy:
 The fraud classification threshold is set to 0.7 instead of the default 0.5
 to prioritize high recall while maintaining acceptable precision for manual review capacity.
-
 
 <img width="427" height="180" alt="Screenshot 2025-12-24 at 16 00 08" src="https://github.com/user-attachments/assets/a8f7b0b8-f088-4fbe-8af4-0dc730037c37" />
 
@@ -126,7 +125,7 @@ to prioritize high recall while maintaining acceptable precision for manual revi
 
 <img width="1161" height="590" alt="Screenshot 2025-12-25 at 23 35 23" src="https://github.com/user-attachments/assets/f9e69fae-a357-455c-a0ae-460d26a10519" />
 
-The UI Takes User inputs on transaction_amount, Merchant Category, Transaction_time, Zip Code and State, which sends the request to predict @post at endpoint, which then return backs to predictions using Xgboost model (using preprocessing pipeline). 
+The Interface takes user inputs on transaction_amount, merchant_category, transaction_time, zip code and state, which sends the request to predict @post at endpoint, and return predictions using Xgboost model (using preprocessing pipeline). 
 
 #### Results:
 
